@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Ocarat Pilot</title>
+    {% block stylesheets %}
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <link rel="shortcut icon" href="/bundles/ocaratcore/img/favicon.ico">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon57.png" sizes="57x57">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon72.png" sizes="72x72">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon76.png" sizes="76x76">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon114.png" sizes="114x114">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon120.png" sizes="120x120">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon144.png" sizes="144x144">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon152.png" sizes="152x152">
+        <!-- Stylesheets -->
+        <!-- Bootstrap is included in its original form, unaltered -->
+        <link rel="stylesheet" href="/bundles/ocaratcore/css/bootstrap.min.css">
+
+        <!-- Related styles of various icon packs and plugins -->
+        <link rel="stylesheet" href="/bundles/ocaratcore/css/plugins.css">
+
+        <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+        <link rel="stylesheet" href="/bundles/ocaratcore/css/main.css">
+
+        <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+
+        <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+        <link rel="stylesheet" href="/bundles/ocaratcore/css/themes.css">
+        <!-- END Stylesheets -->
+
+        <script src="/bundles/ocaratcore/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="/bundles/ocaratcore/js/sugar.min.js"></script>
+    {% endblock %}
+
+</head>
+<body>
+{% block body %}
+    <!-- Page Wrapper -->
+    <!-- In the PHP version you can set the following options from inc/config file -->
+    <!--
+        Available classes:
+
+        'page-loading'      enables page preloader
+    -->
+    <div id="page-wrapper" class="page-loading">
+        <!-- Preloader -->
+        <!-- Preloader functionality (initialized in js/app.js) - pageLoading() -->
+        <!-- Used only if page preloader enabled from inc/config (PHP version) or the class 'page-loading' is added in body element (HTML version) -->
+        <div class="preloader">
+            <div class="inner">
+                <!-- Animation spinner for all modern browsers -->
+                <div class="preloader-spinner themed-background hidden-lt-ie10"></div>
+
+                <!-- Text for IE9 -->
+                <h3 class="text-primary visible-lt-ie10"><strong>Loading..</strong></h3>
+            </div>
+        </div>
+        <!-- END Preloader -->
+
+        <!-- Page Container -->
+        <!-- In the PHP version you can set the following options from inc/config file -->
+        <!--
+            Available #page-container classes:
+
+            'sidebar-visible-lg-mini'                       main sidebar condensed - Mini Navigation (> 991px)
+            'sidebar-visible-lg-full'                       main sidebar full - Full Navigation (> 991px)
+
+            'sidebar-alt-visible-lg'                        alternative sidebar visible by default (> 991px) (You can add it along with another class)
+
+            'header-fixed-top'                              has to be added only if the class 'navbar-fixed-top' was added on header.navbar
+            'header-fixed-bottom'                           has to be added only if the class 'navbar-fixed-bottom' was added on header.navbar
+
+            'fixed-width'                                   for a fixed width layout (can only be used with a static header/main sidebar layout)
+        -->
+        <div id="page-container" class="header-fixed-top sidebar-visible-lg-full">
+
+        <!-- Main Sidebar -->
+        <div id="sidebar">
+        <!-- Sidebar Brand -->
+        <div id="sidebar-brand" class="themed-background">
+            <a href="/" class="sidebar-title">
+                <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide">Ocarat<strong>Pilot</strong></span>
+            </a>
+        </div>
+        <!-- END Sidebar Brand -->
+
+        <!-- Wrapper for scrolling functionality -->
+        <div id="sidebar-scroll">
+            <!-- Sidebar Content -->
+            <div class="sidebar-content">
+                <!-- Sidebar Navigation -->
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="{{ path('home') }}" {% if page == 'dashboard' %} class="active" {% endif %}><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
+                    </li>
+                    <li>
+                        <a href="{{ path('detail') }}" {% if page == 'detail' %} class="active" {% endif %}><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Détail par campagne</span></a>
+                    </li>
+                    <li>
+                        <a href="{{ path('command_history') }}" {% if page == 'history' %} class="active" {% endif %}><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Historique par commande</span></a>
+                    </li>
+                    <li class="sidebar-separator">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar-nav-menu">
+                            <i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                            <i class="fa fa-rocket sidebar-nav-icon"></i>
+                            <span class="sidebar-nav-mini-hide">Configuration</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="{{ path('status') }}" {% if page == 'status' %} class="active" {% endif %}><i class="sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-rocket sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Gestion des status</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ path('costs') }}" {% if page == 'costs' %} class="active" {% endif %}><i class="sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-rocket sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Gestion des coûts</span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+                <!-- END Sidebar Navigation -->
+            </div>
+            <!-- END Sidebar Content -->
+        </div>
+        <!-- END Wrapper for scrolling functionality -->
+
+
+        </div>
+        <!-- END Main Sidebar -->
+
+            <!-- Main Container -->
+            <div id="main-container">
+                <!-- Header -->
+                <!-- In the PHP version you can set the following options from inc/config file -->
+                <!--
+                    Available header.navbar classes:
+
+                    'navbar-default'            for the default light header
+                    'navbar-inverse'            for an alternative dark header
+
+                    'navbar-fixed-top'          for a top fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar())
+                        'header-fixed-top'      has to be added on #page-container only if the class 'navbar-fixed-top' was added
+
+                    'navbar-fixed-bottom'       for a bottom fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
+                        'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
+                -->
+                <header class="navbar navbar-inverse navbar-fixed-top">
+
+                    <ul class="nav navbar-nav-custom">
+                        <li>
+                            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');">
+                                <i class="fa fa-ellipsis-v fa-fw animation-fadeInRight" id="sidebar-toggle-mini"></i>
+                                <i class="fa fa-bars fa-fw animation-fadeInRight" id="sidebar-toggle-full"></i>
+                            </a>
+                        </li>
+                        <!-- END Main Sidebar Toggle Button -->
+
+                    </ul>
+                    <!-- Right Header Navigation -->
+
+                    {% if dateFrom is defined  and dateTo is defined and showMonth != true  %}
+
+
+                    <ul class="nav navbar-nav-custom pull-right">
+                        <!-- Search Form -->
+
+                        <li>
+                            <input type="text" id="dateFrom" name="dateFrom" class="form-control input-datepicker-first"
+                                   data-date-format="yyyy-mm-dd"
+                                   placeholder="Du" value="{{ dateFrom }}">
+
+                        </li>
+                        <li>
+
+                            <input type="text" id="dateTo" name="dateTo" class="form-control input-datepicker-last"
+                                   placeholder="Au" value="{{ dateTo }}" data-date-format="yyyy-mm-dd">
+
+                        </li>
+                        <li>
+                            <button type="submit" onclick="changeDate();" class="btn btn-effect-ripple btn-primary">Ok</button>
+                        </li>
+
+                        <!-- END Search Form -->
+
+                    </ul>
+                    {% elseif monthFrom is defined and monthTo is defined%}
+                    <ul class="nav navbar-nav-custom pull-right">
+                        <!-- Search Form -->
+
+                        <li>
+
+
+                            <select class="form-control" name="monthFrom" id="monthFrom">
+                                <option value="">Du</option>
+                                {% for month in months %}
+                                    <option value="{{ month }}" {% if month == monthFrom %} selected {% endif %}> {{ month }} </option>
+                                {% endfor %}
+                            </select>
+
+                        </li>
+                        <li>
+
+                            <select class="form-control" name="monthTo" id="monthTo">
+                                <option value="">Au</option>
+                                {% for month in months %}
+                                    <option value="{{ month }}" {% if month == monthTo %} selected {% endif %}> {{ month }} </option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                        <li>
+                            <button type="submit" onclick="changeMonth();" class="btn btn-effect-ripple btn-primary">Ok</button>
+                        </li>
+
+                        <!-- END Search Form -->
+
+                    </ul>
+                    {% elseif month is defined and year is defined%}
+                        <ul class="nav navbar-nav-custom pull-right">
+                            <!-- Search Form -->
+
+                            <li>
+
+
+                                <select class="form-control" name="month" id="month">
+
+                                    {% for currentMonth in 1..12 %}
+                                        <option value="{{ currentMonth }}" {% if month == currentMonth %} selected {% endif %}> {{ currentMonth }} </option>
+                                    {% endfor %}
+                                </select>
+
+                            </li>
+                            <li>
+
+                                <select class="form-control" name="year" id="year">
+
+                                    {% for currentYear in years %}
+                                        <option value="{{ currentYear }}" {% if currentYear == year %} selected {% endif %}> {{ currentYear }} </option>
+                                    {% endfor %}
+                                </select>
+                            </li>
+                            <li>
+                                <button type="submit" onclick="changeMonthCost();" class="btn btn-effect-ripple btn-primary">Ok</button>
+                            </li>
+
+                            <!-- END Search Form -->
+
+                        </ul>
+                    {% endif %}
+
+                    <!-- END Right Header Navigation -->
+                </header>
+                <!-- END Header -->
+
+                <!-- Page content -->
+                <div id="page-content">
+                    {% block content %}{% endblock %}
+
+                </div>
+                <!-- END Page Content -->
+            </div>
+            <!-- END Main Container -->
+        </div>
+        <!-- END Page Container -->
+    </div>
+    <!-- END Page Wrapper -->
+{% endblock %}
+{% block javascripts %}
+
+    <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file (Remove 'http:' if you have SSL) -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>!window.jQuery && document.write(decodeURI('%3Cscript src="js/vendor/jquery-2.1.1.min.js"%3E%3C/script%3E'));</script>
+
+    <!-- Bootstrap.js, Jquery plugins and Custom JS code -->
+    <script src="/bundles/ocaratcore/js/vendor/bootstrap.min.js"></script>
+    <script src="/bundles/ocaratcore/js/plugins.js"></script>
+    <script src="/bundles/ocaratcore/js/app.js"></script>
+
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="/bundles/ocaratcore/js/pages/demo.js"></script>
+    <script>$(function () {
+            demo.init();
+        });</script>
+
+    <script type="text/javascript">
+        function changeDate(){
+            dateFrom = $("#dateFrom").val();
+            dateTo = $("#dateTo").val();
+            url = '?dateFrom='+dateFrom+'&dateTo='+dateTo;
+            document.location.href= url;
+        }
+        function changeMonth(){
+            monthFrom = $("#monthFrom").val();
+            monthTo = $("#monthTo").val();
+            url = '?monthFrom='+monthFrom+'&monthTo='+monthTo;
+            document.location.href= url;
+        }
+        function changeMonthCost(){
+            month = $("#month").val();
+            year = $("#year").val();
+            url = '?month='+month+'&year='+year;
+            document.location.href= url;
+        }
+    </script>
+
+{% endblock %}
+</body>
+</html>

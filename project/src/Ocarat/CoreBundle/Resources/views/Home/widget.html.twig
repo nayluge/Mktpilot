@@ -1,0 +1,224 @@
+{% extends "OcaratCoreBundle::template.html.twig" %}
+
+
+
+{% block content %}
+
+    <div class="block full">
+        <div class="block-title">
+            <h2>CA, CMD ET COÛT MKT SUR LES 12 DERNIERS MOIS </h2>
+        </div>
+        <!-- Get Started Content -->
+        <div id="chart-classic" style="height: 250px;"></div>
+        <!-- END Get Started Content -->
+    </div>
+
+    <div class="col-sm-6 col-lg-3">
+        <a href="javascript:void(0)" class="widget">
+            <div class="widget-content widget-content-mini themed-background-muted">
+                <span class="pull-right text-muted">{{ ((valueOrderDay / valueOrderDayLastYear * 100) -100) | round(1, 'floor') }}%</span>
+                <strong class="text-dark">CA HT du jour</strong>
+            </div>
+            <div class="widget-content text-right clearfix">
+                <div class="widget-icon themed-background-flat pull-left">
+                    <i class="gi gi-euro text-light-op"></i>
+                </div>
+                <h2 class="widget-heading h3 themed-color-flat"><strong>{{ valueOrderDay | round(2, 'floor') }}</strong></h2>
+                <span class="text-muted">{{ valueOrderDayLastYear | round(2, 'floor') }}</span>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <a href="javascript:void(0)" class="widget">
+            <div class="widget-content widget-content-mini themed-background-muted">
+                <span class="pull-right text-muted">{{ ((nbOrderDay / nbOrderDayLastYear * 100) -100) | round(1, 'floor') }}%</span>
+                <strong class="text-dark">CMD du jour</strong>
+            </div>
+            <div class="widget-content text-right clearfix">
+                <div class="widget-icon themed-background-flat pull-left">
+                    <i class="gi gi-shopping_cart text-light-op"></i>
+                </div>
+                <h2 class="widget-heading h3 themed-color-flat"><strong>{{ nbOrderDay }}</strong></h2>
+                <span class="text-muted">{{ nbOrderDayLastYear }}</span>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <a href="javascript:void(0)" class="widget">
+            <div class="widget-content widget-content-mini themed-background-muted">
+                <span class="pull-right text-muted">{{ ((cartDay / cartDayLastYear * 100) -100) | round(1, 'floor') }}%</span>
+                <strong class="text-dark">Panier moyen du jour</strong>
+            </div>
+            <div class="widget-content text-right clearfix">
+                <div class="widget-icon themed-background-flat pull-left">
+                    <i class="gi gi-record text-light-op"></i>
+                </div>
+                <h2 class="widget-heading h3 themed-color-flat"><strong>{{ cartDay | round(2, 'floor') }}</strong></h2>
+                <span class="text-muted">{{ cartDayLastYear | round(2, 'floor') }}</span>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <a href="javascript:void(0)" class="widget">
+            <div class="widget-content widget-content-mini themed-background-muted">
+                <span class="pull-right text-muted">0%</span>
+                <strong class="text-dark">Visites du jour</strong>
+            </div>
+            <div class="widget-content text-right clearfix">
+                <div class="widget-icon themed-background-flat pull-left">
+                    <i class="gi gi-user text-light-op"></i>
+                </div>
+                <h2 class="widget-heading h3 themed-color-flat"><strong>0</strong></h2>
+                <span class="text-muted">0</span>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <a href="javascript:void(0)" class="widget">
+            <div class="widget-content widget-content-mini themed-background-muted">
+                <span class="pull-right text-muted">{{ ((valueOrderMonth / valueOrderMonthLastYear * 100) -100) | round(1, 'floor') }}%</span>
+                <strong class="text-dark">CA HT du mois</strong>
+            </div>
+            <div class="widget-content text-right clearfix">
+                <div class="widget-icon themed-background-flat pull-left">
+                    <i class="gi gi-euro text-light-op"></i>
+                </div>
+                <h2 class="widget-heading h3 themed-color-flat"><strong>{{ valueOrderMonth | round(2, 'floor') }}</strong></h2>
+                <span class="text-muted">{{ valueOrderMonthLastYear | round(2, 'floor') }}</span>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <a href="javascript:void(0)" class="widget">
+            <div class="widget-content widget-content-mini themed-background-muted">
+                <span class="pull-right text-muted">{{ ((nbOrderMonth / nbOrderMonthLastYear * 100) -100) | round(1, 'floor') }}%</span>
+                <strong class="text-dark">CMD du mois</strong>
+            </div>
+            <div class="widget-content text-right clearfix">
+                <div class="widget-icon themed-background-flat pull-left">
+                    <i class="gi gi-shopping_cart text-light-op"></i>
+                </div>
+                <h2 class="widget-heading h3 themed-color-flat"><strong>{{ nbOrderMonth }}</strong></h2>
+                <span class="text-muted">{{ nbOrderMonthLastYear }}</span>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <a href="javascript:void(0)" class="widget">
+            <div class="widget-content widget-content-mini themed-background-muted">
+                <span class="pull-right text-muted">{{ ((cartMonth / cartMonthLastYear * 100) -100) | round(1, 'floor') }}%</span>
+                <strong class="text-dark">Panier moyen du mois</strong>
+            </div>
+            <div class="widget-content text-right clearfix">
+                <div class="widget-icon themed-background-flat pull-left">
+                    <i class="gi gi-record text-light-op"></i>
+                </div>
+                <h2 class="widget-heading h3 themed-color-flat"><strong>{{ cartMonth | round(2, 'floor') }}</strong></h2>
+                <span class="text-muted">{{ cartMonthLastYear | round(2, 'floor') }}</span>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <a href="javascript:void(0)" class="widget">
+            <div class="widget-content widget-content-mini themed-background-muted">
+                <span class="pull-right text-muted">0%</span>
+                <strong class="text-dark">Visites du mois</strong>
+            </div>
+            <div class="widget-content text-right clearfix">
+                <div class="widget-icon themed-background-flat pull-left">
+                    <i class="gi gi-user text-light-op"></i>
+                </div>
+                <h2 class="widget-heading h3 themed-color-flat"><strong>0</strong></h2>
+                <span class="text-muted">0</span>
+            </div>
+        </a>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        /*
+         * Flot Charts Jquery plugin is used for charts
+         *
+         * For more examples or getting extra plugins you can check http://www.flotcharts.org/
+         * Plugins included in this template: pie, resize, stack, time
+         */
+
+        // Get the elements where we will attach the charts
+        var chartClassic    = $('#chart-classic');
+
+        // Data for the charts
+        var dataEarnings    = [{% for ca in graphCa %}{% if loop.index > 1 %},{% endif %}[{{ loop.index }}, '{{ ca}}']{% endfor %}];
+        var dataCosts    = [{% for ca in graphCost %}{% if loop.index > 1 %},{% endif %}[{{ loop.index }}, '{{ ca}}']{% endfor %}];
+
+        var dataSales       = [{% for nb in graphNb %}{% if loop.index > 1 %},{% endif %}[{{ loop.index }}, '{{ nb}}']{% endfor %}];
+        var dataMonths      = [{% for date in graphDate %}{% if loop.index > 1 %},{% endif %}[{{ loop.index }}, '{{ date}}']{% endfor %}];
+
+        // Classic Chart
+        $.plot(chartClassic,
+                [
+                    {
+                        label: 'Chiffre d’affaire (HT)',
+                        data: dataEarnings,
+                        lines: {show: true, fill: true, fillColor: {colors: [{opacity: .6}, {opacity: .6}]}},
+                        points: {show: true, radius: 5}
+                    },
+                    {
+                        label: 'Coût marketing',
+                        data: dataCosts,
+                        lines: {show: true},
+                        points: {show: true, radius: 5}
+                    },
+                    {
+                        label: 'Nombre de commandes',
+                        data: dataSales,
+                        lines: {show: true},
+                        points: {show: true, radius: 5},
+                        yaxis: 2,
+                        color : 'red'
+                    }
+                ],
+                {
+                    colors: ['#5ccdde', '#454e59', '#ffffff'],
+                    legend: {show: true, position: 'nw', backgroundOpacity: 0},
+                    grid: {borderWidth: 0, hoverable: true, clickable: true},
+                    yaxes: [ { position: 'right', tickColor: '#f5f5f5', ticks: 3 }, { position: 'left', tickColor: '#f5f5f5', ticks: 3 }],
+                    xaxis: {ticks: dataMonths, tickColor: '#f9f9f9'}
+                }
+        );
+
+        // Creating and attaching a tooltip to the classic chart
+        var previousPoint = null, ttlabel = null;
+        chartClassic.bind('plothover', function(event, pos, item) {
+
+            if (item) {
+                if (previousPoint !== item.dataIndex) {
+                    previousPoint = item.dataIndex;
+
+                    $('#chart-tooltip').remove();
+                    var x = item.datapoint[0], y = item.datapoint[1];
+
+                    if (item.seriesIndex === 0) {
+                        ttlabel = '<strong>' + (y).format(2, ' ') + '</strong> €';
+                    } else if (item.seriesIndex === 1) {
+                        ttlabel = 'coût :<strong>' + (y).format(2, ' ') + '</strong> €';
+                    } else if (item.seriesIndex === 2) {
+                        ttlabel = '<strong>' + y + '</strong> ventes';
+                    }
+
+                    $('<div id="chart-tooltip" class="chart-tooltip">' + ttlabel + '</div>')
+                            .css({top: item.pageY - 45, left: item.pageX + 5}).appendTo("body").show();
+                }
+            }
+            else {
+                $('#chart-tooltip').remove();
+                previousPoint = null;
+            }
+        });
+    </script>
+
+{% endblock %}
+
+

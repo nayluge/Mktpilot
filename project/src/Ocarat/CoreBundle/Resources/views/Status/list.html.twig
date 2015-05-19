@@ -1,0 +1,71 @@
+{% extends "OcaratCoreBundle::template.html.twig" %}
+
+
+
+{% block content %}
+
+    <!-- Get Started Block -->
+    {#
+    <div class="block full">
+        <!-- Get Started Content -->
+        <div id="chart-classic" style="height: 300px;"></div>
+        <!-- END Get Started Content -->
+    </div>
+    #}
+
+    <div class="block full">
+        <div class="table-responsive">
+            <table id="example-datatable" class="table table-striped table-bordered table-vcenter">
+                <thead>
+                <tr>
+
+                    <th>Status</th>
+                    <th>Actif pour CA ?</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for status in statuses %}
+                    <tr>
+
+                        <td>{{ status.name }}</td>
+                        <td>
+                            <label class="switch switch-success">
+                                <input {% if status.usedForAmount == 'true' %}checked=""{% endif %} type="checkbox" name="{{ status.id }}" class="checkStatus" id="{{ status.id }}">
+                                <span></span>
+                            </label>
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <!-- END Get Started Block -->
+
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+<script type="text/javascript">
+    $(".checkStatus").change(function() {
+        id = $(this).attr('id')
+        $.ajax({
+            url: "/status/update/"+id,
+            context: document.body
+        })
+    })
+</script>
+
+{% endblock %}
+
+

@@ -1,0 +1,63 @@
+{% extends "OcaratCoreBundle::template.html.twig" %}
+
+
+
+{% block content %}
+
+    <div class="block full" style="padding-top: 5px; padding-bottom: 5px;">
+        <ol class="breadcrumb" style="margin-bottom: 0px;">
+            <li><a href="{{ path('home') }}"><i class="fa fa-home"></i></a></li>
+            <li><a href="#">Historique des campagnes mkt des commandes</a></li>
+        </ol>
+    </div>
+
+    <div class="block full">
+        <div class="block-title">
+            <h2>DÉTAILS DES CAMPAGNES SUR LE MOIS EN COURS</h2>
+        </div>
+        <div class="table-responsive">
+            <table id="example-datatable" class="table table-striped table-bordered table-vcenter">
+                <thead>
+                <tr>
+                    <th>Id commande</th>
+                    <th>Date de la commande</th>
+                    <th>Campagne taggée</th>
+                    <th>Historique campagnes</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for order in orders %}
+
+                    <tr>
+
+                        <td><a href="#">{{ order.orderId }}</a></td>
+                        <td>{{ order.dateOrder |date('d/m/Y') }}</td>
+                        <td>{{ order.campaign }} - {{ order.medium }} </td>
+                        <td>
+                            {% for campagn in order.campaignHistory %}
+                                - {{ campagn[0] }} - {{ campagn[1] }} : le {{ campagn[2] |date("d/m/Y H:i:s") }} <br>
+                            {% endfor %}
+                        </td>
+
+
+                    </tr>
+
+               {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- END Get Started Block -->
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+
+{% endblock %}
+
+

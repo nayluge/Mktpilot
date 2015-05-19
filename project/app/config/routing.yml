@@ -1,0 +1,5 @@
+ocarat_core:
+    resource: "@OcaratCoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

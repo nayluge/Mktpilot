@@ -1,0 +1,91 @@
+{% extends "OcaratCoreBundle::template.html.twig" %}
+
+
+
+{% block content %}
+
+    <!-- Get Started Block -->
+    {#
+    <div class="block full">
+        <!-- Get Started Content -->
+        <div id="chart-classic" style="height: 300px;"></div>
+        <!-- END Get Started Content -->
+    </div>
+    #}
+
+    <div class="block full">
+        <div class="table-responsive">
+            <table id="costdatatable" class="table table-striped table-bordered table-vcenter">
+                <thead>
+                <tr>
+
+                    <th>Campagne</th>
+                    <th>Coût</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for cost in costs %}
+                    <tr>
+
+                        <td>{{ cost.campaign }}</td>
+                        <td>
+                            <div class="input-group">
+                                <input name="example-input3-group1" class="form-control cost" placeholder="0"
+                                       id="{{ cost.id }}" value="{{ cost.cost }}" type="text">
+                                <span class="input-group-addon"><i class="fa fa-euro"></i></span>
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <!-- END Get Started Block -->
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#costdatatable').DataTable({
+                iDisplayLength: 100,
+                aLengthMenu: [
+                    [5, 10, 20, 100],
+                    [5, 10, 20, 100]
+                ],
+                order: [ 1, 'asc' ]
+
+            });
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        $(".cost").focusout(function () {
+            $.ajax({
+                type: "POST",
+                data: "value=" + this.value,
+                url: "/cost/update/" + $(this).attr("id"),
+                context: document.body
+            })
+        });
+
+    </script>
+
+{% endblock %}
+
+

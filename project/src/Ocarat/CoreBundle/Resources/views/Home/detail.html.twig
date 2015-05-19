@@ -1,0 +1,137 @@
+{% extends "OcaratCoreBundle::template.html.twig" %}
+
+
+
+{% block content %}
+
+    <div class="block full" style="padding-top: 5px; padding-bottom: 5px;">
+        <ol class="breadcrumb" style="margin-bottom: 0px;">
+            <li><a href="/"><i class="fa fa-home"></i></a></li>
+            <li><a href="{{ path('detail') }}"> Par campagne</a></li>
+        </ol>
+    </div>
+
+    <div class="block full">
+        <div class="block-title">
+            <h2>DÉTAILS DES CAMPAGNES SUR LE MOIS EN COURS</h2>
+        </div>
+        <div class="table-responsive">
+            <table id="example-datatable" class="table table-striped table-bordered table-vcenter">
+                <thead>
+                <tr>
+
+                    <th data-toggle="tooltip" data-placement="top" title="" style="overflow: hidden; position: relative;" data-original-title="Une campagne est composée d’une source et d’un support d’acquisition.">Campagne </th>
+                    <th data-toggle="tooltip" data-placement="top" title="" style="overflow: hidden; position: relative;" data-original-title="Nombre de commandes « valide ». Les arnaques, annulations et paiements en attentes ne sont pas comptabilisés (voir configuration des statuts).">Nb Commandes</th>
+                    <th data-toggle="tooltip" data-placement="top" title="" style="overflow: hidden; position: relative;" data-original-title="Chiffre d’affaire exprimé hors-taxe. Les frais de port ainsi que les remboursements sont comptabilisés dans ce chiffre.">Chiffre d'affaire</th>
+                    <th data-toggle="tooltip" data-placement="top" title="" style="overflow: hidden; position: relative;" data-original-title="Moyenne des montants de commande">Panier Moyen</th>
+                    <th data-toggle="tooltip" data-placement="top" title="" style="overflow: hidden; position: relative;" data-original-title="Selon facture mensuelle hors-taxe.">Coût</th>
+                    <th data-toggle="tooltip" data-placement="top" title="" style="overflow: hidden; position: relative;" data-original-title="Le coût marketing divisé par le chiffre d’affaire. Plus le % est petit meilleur est le ROI. Au-dessus de 100% ce n’est plus rentable.">% coût / CA</th>
+                    <th data-toggle="tooltip" data-placement="top" title="" style="overflow: hidden; position: relative;" data-original-title="Le % que représente ce levier sur le chiffre d’affaire sélectionné.">% du CA</th>
+                    <th data-toggle="tooltip" data-placement="top" title="" style="overflow: hidden; position: relative;" data-original-title="Cout marketing HT par commande.">CPA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% set sumNb = 0 %}
+                {% set sumCa = 0 %}
+                {% set sumCost = 0 %}
+                {% for name,campaign in campaigns %}
+                    <tr>
+                        {% set sumNb = sumNb + campaign['nbOrder'] %}
+                        {% set sumCa = sumCa + campaign['Ca'] %}
+                        {% set sumCost = sumCost + campaign['cost'] %}
+                        <td><a href="{{ path('campaign', {'campaignName': name, 'monthFrom':monthFrom, 'monthTo': monthTo}) }}">{{ name }}</a></td>
+                        <td>{{ campaign['nbOrder'] }}</td>
+                        <td>{{ campaign['Ca']|number_format(2, '.', ',') }}</td>
+                        <td>
+                            {% if campaign['nbOrder'] > 0 %}
+                                {{ (campaign['Ca']/campaign['nbOrder'])|number_format(2, '.', ',') }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </td>
+                        <td>{{ campaign['cost']|number_format(2, '.', ',') }}</td>
+                        <td>
+                            {% if campaign['Ca'] > 0 %}
+                                 {{ (campaign['cost']*100/campaign['Ca'])|number_format(2, '.', ',') }}
+                            {% else %}
+                                {{ campaign['cost']|number_format(2, '.', ',') }}
+                            {% endif %}
+                        </td>
+                        <td>{{ (campaign['Ca']/ca*100)|round(2, 'floor')|number_format(2, '.', ',') }}</td>
+                        <td>
+                            {% if campaign['nbOrder'] > 0 %}
+                                {{ (campaign['cost']/campaign['nbOrder'])|number_format(2, '.', ',') }}
+                            {% else %}
+                                {{ campaign['cost']|number_format(2, '.', ',') }}
+                            {% endif %}
+                        </td>
+
+                    </tr>
+
+               {% endfor %}
+
+                </tbody>
+                <tfoot>
+                <tr>
+
+                    <th>Total</th>
+                    <th>{{ sumNb|number_format(2, '.', ',') }}</th>
+                    <th>{{ sumCa|number_format(2, '.', ',') }}</th>
+                    <th>
+                        {% if sumNb > 0 %}
+                            {{ (sumCa/sumNb)|number_format(2, '.', ',') }}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </th>
+                    <th>{{ sumCost|number_format(2, '.', ',') }}</th>
+                    <th>{{ (sumCost*100/sumCa)|number_format(2, '.', ',') }} %</th>
+                    <th></th>
+                    <th>
+                        {% if sumCost > 0 %}
+                            {{ (sumCost/sumNb)|number_format(2, '.', ',') }}
+                        {% else %}
+                            {{ sumCost|number_format(2, '.', ',') }}
+                        {% endif %}
+                    </th>
+
+
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <!-- END Get Started Block -->
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+    $('#chart-tooltip').remove();
+    var x = item.datapoint[0], y = item.datapoint[1];
+
+    if (item.seriesIndex === 0) {
+        ttlabel = '<strong>' + (y).format(2, ' ') + '</strong> €';
+    } else if (item.seriesIndex === 1) {
+        ttlabel = 'coût :<strong>' + (y).format(2, ' ') + '</strong> €';
+    } else if (item.seriesIndex === 2) {
+        ttlabel = '<strong>' + y + '</strong> ventes';
+    }
+
+    $('<div id="chart-tooltip" class="chart-tooltip">' + ttlabel + '</div>')
+    .css({top: item.pageY - 45, left: item.pageX + 5}).appendTo("body").show();
+    }
+    }
+    else {
+    $('#chart-tooltip').remove();
+    previousPoint = null;
+    }
+    });
+    </script>
+
+{% endblock %}
+
+

@@ -1,0 +1,8 @@
+services:
+    ocarat_core.order:
+        class: Ocarat\CoreBundle\Service\Order
+        arguments: ["@doctrine.orm.entity_manager", "@doctrine.orm.entity_manager_ocarat"]
+
+    ocarat_core.stats:
+        class: Ocarat\CoreBundle\Service\Stats
+        arguments: ["@doctrine.orm.entity_manager"]
