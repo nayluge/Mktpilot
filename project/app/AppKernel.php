@@ -15,8 +15,15 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new JMS\AopBundle\JMSAopBundle(),
+            new Ivory\OrderedFormBundle\IvoryOrderedFormBundle(),
             new Ocarat\CoreBundle\OcaratCoreBundle(),
+            new Ocarat\UserBundle\OcaratUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -33,9 +40,4 @@ class AppKernel extends Kernel
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
 
-    public function init()
-    {
-        date_default_timezone_set( 'Europe/Paris' );
-        parent::init();
-    }
 }

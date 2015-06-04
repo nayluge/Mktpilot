@@ -1,12 +1,42 @@
 security:
+    role_hierarchy:
+        ROLE_MKT:       [ROLE_USER]
+        ROLE_PRODUIT:       [ROLE_USER]
+        ROLE_ADMIN:       [ROLE_MKT, ROLE_PRODUIT]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+    acl:
+            connection: default
+    encoders:
+            FOS\UserBundle\Model\UserInterface: sha512
     providers:
-        in_memory:
-            memory: ~
+        fos_userbundle:
+            id: fos_user.user_manager
 
     firewalls:
+        # Disabling the security for the web debug toolbar, the profiler and Assetic.
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        default:
-            anonymous: ~
+        # default login area for standard users
+
+        # This firewall is used to handle the public login area
+        # This part is handled by the FOS User Bundle
+        main:
+            pattern:             .*
+            context:             user
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /login
+                use_forward:    false
+                check_path:     /login_check
+                failure_path:   null
+            logout:             true
+            anonymous:          true
+    access_control:
+        # URL of FOSUserBundle which need to be available to anonymous users
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: ^/.*, role: IS_AUTHENTICATED_FULLY }

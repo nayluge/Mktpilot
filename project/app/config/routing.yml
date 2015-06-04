@@ -3,3 +3,7 @@ ocarat_core:
     type:     annotation
     prefix:   /
 
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+

@@ -34,7 +34,7 @@
     {% endblock %}
 
 </head>
-<body>
+<body {% block body_attributes %}{% endblock %}>
 {% block body %}
     <!-- Page Wrapper -->
     <!-- In the PHP version you can set the following options from inc/config file -->
@@ -94,12 +94,29 @@
                     <li>
                         <a href="{{ path('home') }}" {% if page == 'dashboard' %} class="active" {% endif %}><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a>
                     </li>
+                    {% if is_granted('ROLE_MKT') %}
+                    <li class="sidebar-separator">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </li>
+                    <li>
+                        <a href="#"><i class="gi gi-star sidebar-nav-icon"></i> <b>Marketing</b></a>
+                    </li>
                     <li>
                         <a href="{{ path('detail') }}" {% if page == 'detail' %} class="active" {% endif %}><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Détail par campagne</span></a>
                     </li>
                     <li>
                         <a href="{{ path('command_history') }}" {% if page == 'history' %} class="active" {% endif %}><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Historique par commande</span></a>
                     </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_PRODUIT') %}
+                    <li class="sidebar-separator">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </li>
+                    <li>
+                        <a href="#"><i class="gi gi-star sidebar-nav-icon"></i> <b>Produit</b></a>
+                    </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <li class="sidebar-separator">
                         <i class="fa fa-ellipsis-h"></i>
                     </li>
@@ -117,6 +134,16 @@
                                 <a href="{{ path('costs') }}" {% if page == 'costs' %} class="active" {% endif %}><i class="sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-rocket sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Gestion des coûts</span></a>
                             </li>
                         </ul>
+                    </li>
+                    <li>
+                        <a href="{{ path('user') }}" {% if page == 'user' %} class="active" {% endif %}><i class="gi gi-star sidebar-nav-icon"></i> <b>Gestion des utilisateurs</b></a>
+                    </li>
+                    {% endif %}
+                    <li class="sidebar-separator">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </li>
+                    <li>
+                        <a href="{{ path('fos_user_security_logout') }}"><i class="gi gi-star sidebar-nav-icon"></i> <b>Déconnexion</b></a>
                     </li>
 
 

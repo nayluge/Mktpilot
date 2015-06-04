@@ -1,6 +1,7 @@
 <?php
 
 namespace Ocarat\CoreBundle\Service;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -13,11 +14,11 @@ class Order{
      */
     protected $em;
 
-    public function __construct(EntityManager $entityManager, EntityManager $ocaratManager)
+    public function __construct(ManagerRegistry $doctrine)
     {
 
-        $this->em = $entityManager;
-        $this->emoc = $ocaratManager;
+        $this->em = $doctrine->getManager('default');
+        $this->emoc = $doctrine->getManager('site');
     }
 
     public function updateInfo($orderId){

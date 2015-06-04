@@ -1,0 +1,35 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block stylesheets%}
+    {{ parent() }}
+    <!-- Login CSS -->
+    <link href="/bundles/pergamapp/css/pages/login.css" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block fos_user_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <img src="/bundles/pergamapp/img/pergam.png">
+                    </div>
+                    <div class="panel-body">
+
+
+                            <p>
+                                {{ 'resetting.check_email'|trans({'%email%': email}) }}
+                            </p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock fos_user_content %}

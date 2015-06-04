@@ -1,0 +1,111 @@
+{% set page='user' %}
+{% extends 'OcaratCoreBundle::template.html.twig' %}
+
+{% block stylesheets %}
+   {{ parent() }}
+    <link href="/bundles/ocaratcore/css/plugins/dataTables.bootstrap.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    {% embed 'OcaratCoreBundle:Block:default-panel.html.twig' %}
+
+    {% block blocktitle %}
+        {% trans %}user.title{% endtrans %}
+    {% endblock %}
+
+    {% block blocksubtitle %}
+        {% trans %}user.manage{% endtrans %}
+    {% endblock %}
+
+    {% block actiontitle %}
+        <div class="btn-group">
+            <a href="{{ path('user_new') }}">
+                <button type="button" class="btn btn-default">
+                    <i class="fa fa-plus"></i> {% trans %}user.add{% endtrans %}
+                </button>
+            </a>
+        </div>
+    {% endblock %}
+
+
+    {% block contenu %}
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover" role="grid" id="users-table">
+            <thead>
+                <tr>
+                    <th>{% trans %}user.firstname{% endtrans %}</th>
+                    <th>{% trans %}user.lastname{% endtrans %}</th>
+                    <th>{% trans %}user.username{% endtrans %}</th>
+                    <th>{% trans %}user.lastlogin{% endtrans %}</th>
+                    <th>{% trans %}user.role{% endtrans %}</th>
+                    <th>{% trans %}user.enabled{% endtrans %}</th>
+                    <th>{% trans %}user.locked{% endtrans %}</th>
+                    <th>{% trans %}menu.action{% endtrans %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.firstName }}</td>
+                    <td>{{ entity.lastName }}</td>
+                    <td>{{ entity.userName }}</td>
+                    <td>
+                        {% if entity.lastLogin is not null %}
+                            {{ entity.lastLogin |localizeddate('short', 'short', app.request.locale)}}
+                        {% else %}
+                            {% trans %}never{% endtrans %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ entity.roles[0]|trans }}
+                    </td>
+                    <td>
+                        {% if entity.enabled %}
+                            {% trans %}yes{% endtrans %}
+                        {% else %}
+                            {% trans %}no{% endtrans %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if entity.locked %}
+                            {% trans %}yes{% endtrans %}
+                        {% else %}
+                            {% trans %}no{% endtrans %}
+                        {% endif %}
+                    </td>
+                    <td align="center">
+                        <a href="{{ path('user_edit', { 'id': entity.id }) }}">
+                            <button type="button" class="btn btn-warning btn-circle btn-2x">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}
+
+    {% endembed %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <!-- DataTables JavaScript -->
+    {% javascripts
+    '@OcaratCoreBundle/Resources/public/js/plugins/dataTables/jquery.dataTables.js'
+    '@OcaratCoreBundle/Resources/public/js/plugins/dataTables/dataTables.bootstrap.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        $(document).ready(function() {
+            $('#users-table').dataTable( {
+                {%  if app.request.getLocale() == 'fr' %}
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/3cfcc339e89/i18n/French.json"
+                }
+                {% endif %}
+            } );
+        });
+    </script>
+{% endblock %}

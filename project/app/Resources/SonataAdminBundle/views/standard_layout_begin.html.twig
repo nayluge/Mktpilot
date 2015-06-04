@@ -1,0 +1,324 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+{% set _preview      = block('preview') %}
+{% set _form         = block('form') %}
+{% set _show         = block('show') %}
+{% set _list_table   = block('list_table') %}
+{% set _list_filters = block('list_filters') %}
+{% set _tab_menu     = block('tab_menu') %}
+{% set _content      = block('content') %}
+{% set _title        = block('title') %}
+{% set _breadcrumb   = block('breadcrumb') %}
+{% set _actions      = block('actions') %}
+{% set _navbar_title = block('navbar_title') %}
+<!DOCTYPE html>
+<html {% block html_attributes %}class="no-js"{% endblock %}>
+<head>
+    {% block meta_tags %}
+        <meta charset="UTF-8">
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    {% endblock %}
+
+    {% block stylesheets %}
+        {% for stylesheet in admin_pool.getOption('stylesheets', []) %}
+            <link rel="stylesheet" href="{{ asset(stylesheet) }}">
+        {% endfor %}
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <link rel="shortcut icon" href="/bundles/ocaratcore/img/favicon.ico">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon57.png" sizes="57x57">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon72.png" sizes="72x72">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon76.png" sizes="76x76">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon114.png" sizes="114x114">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon120.png" sizes="120x120">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon144.png" sizes="144x144">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon152.png" sizes="152x152">
+        <!-- Stylesheets -->
+        <!-- Bootstrap is included in its original form, unaltered -->
+        <link rel="stylesheet" href="/bundles/ocaratcore/css/bootstrap.min.css">
+
+        <!-- Related styles of various icon packs and plugins -->
+        <link rel="stylesheet" href="/bundles/ocaratcore/css/plugins.css">
+
+        <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+        <link rel="stylesheet" href="/bundles/ocaratcore/css/main.css">
+
+        <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+
+        <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+        <link rel="stylesheet" href="/bundles/ocaratcore/css/themes.css">
+        <!-- END Stylesheets -->
+
+        <script src="/bundles/ocaratcore/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="/bundles/ocaratcore/js/sugar.min.js"></script>
+
+
+    {% endblock %}
+
+    {% block javascripts %}
+        <script>
+            window.SONATA_CONFIG = {
+                CONFIRM_EXIT: {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}true{% else %}false{% endif %},
+                USE_SELECT2: {% if admin_pool is defined and admin_pool.getOption('use_select2') %}true{% else %}false{% endif %},
+                USE_ICHECK: {% if admin_pool is defined and admin_pool.getOption('use_icheck') %}true{% else %}false{% endif %}
+            };
+            window.SONATA_TRANSLATIONS = {
+                CONFIRM_EXIT:  '{{ 'confirm_exit'|trans({}, 'SonataAdminBundle')|escape('js') }}'
+            };
+        </script>
+
+        {% for javascript in admin_pool.getOption('javascripts', []) %}
+        <script src="{{ asset(javascript) }}"></script>
+        {% endfor %}
+
+        {# localize select2 #}
+        {% if admin_pool is defined and admin_pool.getOption('use_select2') %}
+        {% set locale = app.request.locale %}
+        {% if locale == 'pt' %}{% set locale = 'pt_PT' %}{% endif %}
+
+        {# omit default EN locale #}
+        {% if locale[:2] != 'en' %}
+        <script src="{{ asset('bundles/sonataadmin/vendor/select2/select2_locale_' ~ locale|replace({'_':'-'}) ~ '.js') }}"></script>
+        {% endif %}
+        {% endif %}
+
+        <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file (Remove 'http:' if you have SSL) -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>!window.jQuery && document.write(decodeURI('%3Cscript src="js/vendor/jquery-2.1.1.min.js"%3E%3C/script%3E'));</script>
+
+        <!-- Bootstrap.js, Jquery plugins and Custom JS code -->
+        <script src="/bundles/ocaratcore/js/vendor/bootstrap.min.js"></script>
+        <script src="/bundles/ocaratcore/js/plugins.js"></script>
+        <script src="/bundles/ocaratcore/js/app.js"></script>
+
+        <!-- Load and execute javascript code used only in this page -->
+        <script src="/bundles/ocaratcore/js/pages/demo.js"></script>
+        <script>$(function () {
+                demo.init();
+            });
+        </script>
+
+    {% endblock %}
+
+</head>
+<body {% block body_attributes %}class="sonata-bc skin-black fixed"{% endblock %}>
+{% block sonata_header %}
+    <!-- Header -->
+    <!-- In the PHP version you can set the following options from inc/config file -->
+    <!--
+        Available header.navbar classes:
+
+        'navbar-default'            for the default light header
+        'navbar-inverse'            for an alternative dark header
+
+        'navbar-fixed-top'          for a top fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar())
+            'header-fixed-top'      has to be added on #page-container only if the class 'navbar-fixed-top' was added
+
+        'navbar-fixed-bottom'       for a bottom fixed header (fixed main sidebar with scroll will be auto initialized, functionality can be found in js/app.js - handleSidebar()))
+            'header-fixed-bottom'   has to be added on #page-container only if the class 'navbar-fixed-bottom' was added
+    -->
+    <header class="navbar navbar-inverse navbar-fixed-top">
+
+        <ul class="nav navbar-nav-custom">
+            <li>
+                <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');">
+                    <i class="fa fa-ellipsis-v fa-fw animation-fadeInRight" id="sidebar-toggle-mini"></i>
+                    <i class="fa fa-bars fa-fw animation-fadeInRight" id="sidebar-toggle-full"></i>
+                </a>
+            </li>
+            <!-- END Main Sidebar Toggle Button -->
+
+        </ul>
+        <!-- Right Header Navigation -->
+
+        {% if dateFrom is defined  and dateTo is defined and showMonth != true  %}
+
+
+            <ul class="nav navbar-nav-custom pull-right">
+                <!-- Search Form -->
+
+                <li>
+                    <input type="text" id="dateFrom" name="dateFrom" class="form-control input-datepicker-first"
+                           data-date-format="yyyy-mm-dd"
+                           placeholder="Du" value="{{ dateFrom }}">
+
+                </li>
+                <li>
+
+                    <input type="text" id="dateTo" name="dateTo" class="form-control input-datepicker-last"
+                           placeholder="Au" value="{{ dateTo }}" data-date-format="yyyy-mm-dd">
+
+                </li>
+                <li>
+                    <button type="submit" onclick="changeDate();" class="btn btn-effect-ripple btn-primary">Ok</button>
+                </li>
+
+                <!-- END Search Form -->
+
+            </ul>
+        {% elseif monthFrom is defined and monthTo is defined%}
+            <ul class="nav navbar-nav-custom pull-right">
+                <!-- Search Form -->
+
+                <li>
+
+
+                    <select class="form-control" name="monthFrom" id="monthFrom">
+                        <option value="">Du</option>
+                        {% for month in months %}
+                            <option value="{{ month }}" {% if month == monthFrom %} selected {% endif %}> {{ month }} </option>
+                        {% endfor %}
+                    </select>
+
+                </li>
+                <li>
+
+                    <select class="form-control" name="monthTo" id="monthTo">
+                        <option value="">Au</option>
+                        {% for month in months %}
+                            <option value="{{ month }}" {% if month == monthTo %} selected {% endif %}> {{ month }} </option>
+                        {% endfor %}
+                    </select>
+                </li>
+                <li>
+                    <button type="submit" onclick="changeMonth();" class="btn btn-effect-ripple btn-primary">Ok</button>
+                </li>
+
+                <!-- END Search Form -->
+
+            </ul>
+        {% elseif month is defined and year is defined%}
+            <ul class="nav navbar-nav-custom pull-right">
+                <!-- Search Form -->
+
+                <li>
+
+
+                    <select class="form-control" name="month" id="month">
+
+                        {% for currentMonth in 1..12 %}
+                            <option value="{{ currentMonth }}" {% if month == currentMonth %} selected {% endif %}> {{ currentMonth }} </option>
+                        {% endfor %}
+                    </select>
+
+                </li>
+                <li>
+
+                    <select class="form-control" name="year" id="year">
+
+                        {% for currentYear in years %}
+                            <option value="{{ currentYear }}" {% if currentYear == year %} selected {% endif %}> {{ currentYear }} </option>
+                        {% endfor %}
+                    </select>
+                </li>
+                <li>
+                    <button type="submit" onclick="changeMonthCost();" class="btn btn-effect-ripple btn-primary">Ok</button>
+                </li>
+
+                <!-- END Search Form -->
+
+            </ul>
+        {% endif %}
+
+        <!-- END Right Header Navigation -->
+    </header>
+    <!-- END Header -->
+{% endblock sonata_header %}
+
+{% block sonata_wrapper %}
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+        {% block sonata_left_side %}
+
+        {% endblock sonata_left_side %}
+
+        <aside class="right-side">
+            {% block sonata_page_content %}
+                <section class="content-header">
+                    {% block sonata_page_content_header %}
+                        {% block sonata_page_content_nav %}
+                            {% if _tab_menu is not empty or _actions is not empty %}
+                                <nav class="navbar navbar-default" role="navigation">
+                                    {% block tab_menu_navbar_header %}
+                                        {% if _navbar_title is not empty %}
+                                            <div class="navbar-header">
+                                                <span class="navbar-brand">{{ _navbar_title|raw }}</span>
+                                            </div>
+                                        {% endif %}
+                                    {% endblock %}
+                                    <div class="container-fluid">
+                                        <div class="navbar-left">
+                                            {% if _tab_menu is not empty %}
+                                                {{ _tab_menu|raw }}
+                                            {% endif %}
+                                        </div>
+
+                                        {% if _actions|replace({ '<li>': '', '</li>': '' })|trim is not empty %}
+                                            <ul class="nav navbar-nav navbar-right">
+                                                <li class="dropdown sonata-actions">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'link_actions'|trans({}, 'SonataAdminBundle') }} <b class="caret"></b></a>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        {{ _actions|raw }}
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                </nav>
+                            {% endif %}
+                        {% endblock sonata_page_content_nav %}
+
+                    {% endblock sonata_page_content_header %}
+                </section>
+
+                <section class="content">
+                    {% block sonata_admin_content %}
+
+                        {% block notice %}
+                            {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+                        {% endblock notice %}
+
+                        {% if _preview is not empty %}
+                            <div class="sonata-ba-preview">{{ _preview|raw }}</div>
+                        {% endif %}
+
+                        {% if _content is not empty %}
+                            <div class="sonata-ba-content">{{ _content|raw }}</div>
+                        {% endif %}
+
+                        {% if _show is not empty %}
+                            <div class="sonata-ba-show">{{ _show|raw }}</div>
+                        {% endif %}
+
+                        {% if _form is not empty %}
+                            <div class="sonata-ba-form">{{ _form|raw }}</div>
+                        {% endif %}
+
+                        {% if _list_table is not empty or _list_filters is not empty %}
+                            <div class="row">
+                                <div class="sonata-ba-list {% if _list_filters|trim %}col-md-10{% else %}col-md-12{% endif %}">
+                                    {{ _list_table|raw }}
+                                </div>
+
+                                {% if _list_filters|trim %}
+                                    <div class="sonata-ba-filter col-md-2">
+                                        {{ _list_filters|raw }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endblock sonata_admin_content %}
+                </section>
+            {% endblock sonata_page_content %}
+        </aside>
+
+    </div>
+{% endblock sonata_wrapper %}
+</body>
+</html>

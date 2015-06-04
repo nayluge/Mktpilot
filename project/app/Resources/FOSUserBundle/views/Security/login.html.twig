@@ -1,0 +1,87 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+    {% block stylesheets %}
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <link rel="shortcut icon" href="/bundles/ocaratcore/img/favicon.ico">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon57.png" sizes="57x57">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon72.png" sizes="72x72">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon76.png" sizes="76x76">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon114.png" sizes="114x114">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon120.png" sizes="120x120">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon144.png" sizes="144x144">
+        <link rel="apple-touch-icon" href="/bundles/ocaratcore/img/icon152.png" sizes="152x152">
+        <!-- Stylesheets -->
+        <!-- Bootstrap is included in its original form, unaltered -->
+        <link rel="stylesheet" href="/bundles/ocaratcore/css/bootstrap.min.css">
+
+        <!-- Related styles of various icon packs and plugins -->
+        <link rel="stylesheet" href="/bundles/ocaratcore/css/plugins.css">
+
+        <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+        <link rel="stylesheet" href="/bundles/ocaratcore/css/main.css">
+
+        <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+
+        <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+        <link rel="stylesheet" href="/bundles/ocaratcore/css/themes.css">
+        <!-- END Stylesheets -->
+
+        <script src="/bundles/ocaratcore/js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="/bundles/ocaratcore/js/sugar.min.js"></script>
+    {% endblock %}
+{% block fos_user_content %}
+
+    <div id="login-container">
+        <div class="login-panel panel panel-default">
+            <div class="panel-heading">
+                Mkt ocarat
+            </div>
+            <div class="panel-body">
+
+                <form role="form" action="{{ path("fos_user_security_check") }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="username"
+                               placeholder="{{ 'security.login.username'|trans }}" name="_username"
+                               value="{{ last_username }}"
+                               required="required" autofocus/>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" type="password" id="password" name="_password"
+                               placeholder="{{ 'security.login.password'|trans }}" required="required"/>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                            {{ 'security.login.remember_me'|trans }}
+                        </label>
+                    </div>
+
+                    <input class="btn btn-lg btn-success btn-block" type="submit" id="_submit" name="_submit"
+                           value="{{ 'security.login.submit'|trans }}"/>
+                </form>
+                {% if error %}
+                    <br>
+                    <div class="alert alert-danger col-sm-12">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock fos_user_content %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    !-- Load and execute javascript code used only in this page -->
+    <script src="/bundles/ocaratcore/js/pages/readyLogin.js"></script>
+    <script>$(function () {
+            ReadyLogin.init();
+        });</script>
+
+{% endblock %}

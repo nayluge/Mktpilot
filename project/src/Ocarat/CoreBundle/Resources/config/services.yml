@@ -1,8 +1,12 @@
 services:
     ocarat_core.order:
         class: Ocarat\CoreBundle\Service\Order
-        arguments: ["@doctrine.orm.entity_manager", "@doctrine.orm.entity_manager_ocarat"]
+        arguments: ["@doctrine"]
 
     ocarat_core.stats:
         class: Ocarat\CoreBundle\Service\Stats
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine"]
+
+    ocarat_core.legacyManager:
+        class: Ocarat\CoreBundle\Service\LegacyManager
+        arguments: ["@doctrine"]

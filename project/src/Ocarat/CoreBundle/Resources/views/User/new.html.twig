@@ -1,0 +1,41 @@
+{% set page = 'user' %}
+{% extends 'OcaratCoreBundle::template.html.twig' %}
+
+{% block stylesheets%}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    {% embed 'OcaratCoreBundle:Block:default-panel.html.twig' %}
+
+        {% block blocktitle %}
+            {% trans %}user.title{% endtrans %}
+        {% endblock %}
+
+        {% block blocksubtitle %}
+            {% trans %}user.create{% endtrans %}
+        {% endblock %}
+
+        {% block actiontitle %}
+            <div class="btn-group">
+                <a href="{{ path('user') }}">
+                    <button type="button" class="btn btn-default">
+
+                        <i class="fa fa-arrow-left"></i> {% trans %}menu.back{% endtrans %}
+
+                    </button>
+                </a>
+            </div>
+        {% endblock %}
+
+        {% block contenu %}
+            {{ form(form) }}
+        {% endblock %}
+
+    {% endembed %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
