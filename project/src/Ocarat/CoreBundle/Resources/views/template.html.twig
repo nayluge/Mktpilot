@@ -113,7 +113,7 @@
                         <i class="fa fa-ellipsis-h"></i>
                     </li>
                     <li>
-                        <a href="#"><i class="gi gi-star sidebar-nav-icon"></i> <b>Produit</b></a>
+                        <a href="{{ path('product') }}"><i class="gi gi-star sidebar-nav-icon"></i> <b>Produit</b></a>
                     </li>
                     {% endif %}
                     {% if is_granted('ROLE_SUPER_ADMIN') %}
@@ -310,7 +310,8 @@
     <script>$(function () {
             demo.init();
         });</script>
-
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     <script type="text/javascript">
         function changeDate(){
             dateFrom = $("#dateFrom").val();

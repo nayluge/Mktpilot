@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\AopBundle\JMSAopBundle(),
             new Ivory\OrderedFormBundle\IvoryOrderedFormBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Ocarat\CoreBundle\OcaratCoreBundle(),
             new Ocarat\UserBundle\OcaratUserBundle(),
         );

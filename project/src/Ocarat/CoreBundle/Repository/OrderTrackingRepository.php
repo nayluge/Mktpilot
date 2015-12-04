@@ -70,4 +70,28 @@ class OrderTrackingRepository extends EntityRepository{
         return $query->getSingleScalarResult();
     }
 
+    /**
+     * Get the order to determine tracking
+     *
+     * @return integer
+     */
+    public function getTrackableOrder()
+    {
+        $oDate = new \DateTime();
+        $query = $this->_em->createQuery(
+            'SELECT o
+            FROM OcaratCoreBundle:OrderTracking o
+            WHERE
+            ( o.dateOrder != :currdate
+            OR
+              o.campaignHistory != \'\'
+            )
+            AND o.analyticsMedium IS NULL'
+        )
+            ->setParameter('currdate', $oDate->format('Y-m-d'));
+
+
+        return $query->setMaxResults(200)->getResult();
+    }
+
 }

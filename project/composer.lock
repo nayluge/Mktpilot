@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d50dfbcfbe54821eac31525a99e1f103",
+    "hash": "9207df333ad8902aedc5d89b7a96dc64",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1047,6 +1047,64 @@
             "time": "2014-11-08 14:55:21"
         },
         {
+            "name": "friendsofsymfony/jsrouting-bundle",
+            "version": "1.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle.git",
+                "reference": "539a6ac0c1fb6b010f92a1c877426a4caa5abba1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/539a6ac0c1fb6b010f92a1c877426a4caa5abba1",
+                "reference": "539a6ac0c1fb6b010f92a1c877426a4caa5abba1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/console": "~2.0",
+                "symfony/framework-bundle": "~2.0",
+                "symfony/serializer": "~2.0",
+                "willdurand/jsonp-callback-validator": "~1.0"
+            },
+            "require-dev": {
+                "symfony/expression-language": "~2.4"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FOS\\JsRoutingBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/friendsofsymfony/FOSJsRoutingBundle/contributors"
+                },
+                {
+                    "name": "William Durand",
+                    "email": "william.durand1@gmail.com"
+                }
+            ],
+            "description": "A pretty nice way to expose your Symfony2 routing to client applications.",
+            "homepage": "http://friendsofsymfony.github.com",
+            "keywords": [
+                "Js Routing",
+                "javascript",
+                "routing"
+            ],
+            "time": "2015-01-23 02:44:26"
+        },
+        {
             "name": "friendsofsymfony/rest-bundle",
             "version": "1.6.0",
             "target-dir": "FOS/RestBundle",
@@ -1207,7 +1265,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/517fc2bb11d2d3cfd27af3f783fce6f2f61c688c",
+                "url": "https://api.github.com/repos/google/google-api-php-client/zipball/4dccae45acb79b112281cd16968f24c50a4dfd1b",
                 "reference": "517fc2bb11d2d3cfd27af3f783fce6f2f61c688c",
                 "shasum": ""
             },

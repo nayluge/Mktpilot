@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Ocarat\CoreBundle\Entity\OrderTracking;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class OrderCommand extends ContainerAwareCommand
 {
@@ -78,11 +79,12 @@ class OrderCommand extends ContainerAwareCommand
                         $o->setOrderPrice(0);
 
                         $em->persist($o);
-                        $i++;
+
                     }
 
                 }
             }
+            $i++;
 
 
             $em->flush();

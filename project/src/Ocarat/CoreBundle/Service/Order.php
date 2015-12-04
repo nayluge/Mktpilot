@@ -4,6 +4,7 @@ namespace Ocarat\CoreBundle\Service;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Ocarat\CoreBundle\Entity\OrderTracking;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class Order{
@@ -21,7 +22,33 @@ class Order{
         $this->emoc = $doctrine->getManager('site');
     }
 
-    public function updateInfo($orderId){
+    public function determineTracking(OrderTracking $order)
+    {
+
+        $analitycsCampaign = $campaign = $order->getCampaign();
+        $analitycsMedium = $medium = $order->getMedium();
+        $orderHistory = $order->getCampaignHistory();
+        if(count($orderHistory) > 0) {
+            foreach($orderHistory as $history) {
+                if($history[0] != 'ws.colissimo.fr / referral') {
+                    $campaign = $history[0];
+                    $medium = $history[1];
+                }
+            }
+        }
+
+        $order->setCampaign($campaign);
+        $order->setMedium($medium);
+        $order->setAnalitycsCampaign($analitycsCampaign);
+        $order->setAnalyticsMedium($analitycsMedium);
+        $this->em->persist($order);
+        $this->em->flush();
+
+
+    }
+
+    public function updateInfo($orderId)
+    {
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('orderValue', 'orderValue');

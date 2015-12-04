@@ -21,8 +21,9 @@
                 <tr>
                     <th>Id commande</th>
                     <th>Date de la commande</th>
-                    <th>Campagne taggée</th>
+                    <th>Tracking final</th>
                     <th>Historique campagnes</th>
+                    <th>Analytics tracking</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,6 +40,7 @@
                                 - {{ campagn[0] }} - {{ campagn[1] }} : le {{ campagn[2] |date("d/m/Y H:i:s") }} <br>
                             {% endfor %}
                         </td>
+                        <td>{{ order.analitycsCampaign }} - {{ order.analyticsMedium }} </td>
 
 
                     </tr>

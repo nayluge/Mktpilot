@@ -38,9 +38,9 @@ class OrderTracking
     /**
      * @var string
      *
-     * @ORM\Column(name="medium", type="string")
+     * @ORM\Column(name="analytics_medium", type="string", nullable=true)
      */
-    private $medium;
+    private $analyticsMedium;
 
     /**
      * @var string
@@ -69,8 +69,19 @@ class OrderTracking
      */
     protected $campaignHistory = array();
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="medium", type="string")
+     */
+    private $medium;
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="analytics_campaign", type="string", nullable=true)
+     */
+    private $analitycsCampaign;
 
     /**
      * Get id
@@ -242,4 +253,38 @@ class OrderTracking
     {
         return $this->campaignHistory;
     }
+
+    /**
+     * @return string
+     */
+    public function getAnalitycsCampaign()
+    {
+        return $this->analitycsCampaign;
+    }
+
+    /**
+     * @param string $analitycsCampaign
+     */
+    public function setAnalitycsCampaign($analitycsCampaign)
+    {
+        $this->analitycsCampaign = $analitycsCampaign;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAnalyticsMedium()
+    {
+        return $this->analyticsMedium;
+    }
+
+    /**
+     * @param string $analyticsMedium
+     */
+    public function setAnalyticsMedium($analyticsMedium)
+    {
+        $this->analyticsMedium = $analyticsMedium;
+    }
+
+
 }

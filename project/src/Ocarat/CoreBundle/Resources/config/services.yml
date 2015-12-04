@@ -10,3 +10,6 @@ services:
     ocarat_core.legacyManager:
         class: Ocarat\CoreBundle\Service\LegacyManager
         arguments: ["@doctrine"]
+    ocarat.product.search.manager:
+         class: Ocarat\CoreBundle\Service\ProductSearchManager
+         arguments: ["@doctrine"]

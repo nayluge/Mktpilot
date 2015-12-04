@@ -28,7 +28,7 @@ class OrderNoTrackCommand extends ContainerAwareCommand
         $query = $this->getContainer()->get('doctrine')->getManager('site')
                 ->createNativeQuery('SELECT id_order, date_add FROM ps_orders WHERE date_add > ? AND date_add < ?', $rsm);
 
-        $query->setParameter(1, date("Y-m-d", time()-60*60*24*20));
+        $query->setParameter(1, date("Y-m-d", time()-60*60*24*40));
         $query->setParameter(2, date("Y-m-d", time()-60*60*24*3));
         $orders = $query->getResult();
 
