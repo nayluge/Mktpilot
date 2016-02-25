@@ -20,6 +20,7 @@
                 <thead>
                 <tr>
                     <th>Id commande</th>
+                    <th>Status</th>
                     <th>Date de la commande</th>
                     <th>Tracking final</th>
                     <th>Historique campagnes</th>
@@ -29,10 +30,19 @@
                 <tbody>
 
                 {% for order in orders %}
-
+                    {% if order.status.usedForAmount === true %}
+                        {% set color = 'green' %}
+                    {% else %}
+                        {% set color = 'red' %}
+                    {% endif %}
                     <tr>
 
                         <td><a href="#">{{ order.orderId }}</a></td>
+                        <td>
+                            <span style="color: {{ color }}">
+                                {{ order.status.name }}
+                            </span>
+                        </td>
                         <td>{{ order.dateOrder |date('d/m/Y') }}</td>
                         <td>{{ order.campaign }} - {{ order.medium }} </td>
                         <td>
